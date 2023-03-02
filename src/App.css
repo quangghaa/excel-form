@@ -1,38 +1,258 @@
+*{
+  font-size: 16px;
+  font-weight: 500;
+  color: rgb(27, 27, 27);
+  font-family: "Roboto";
+}
+
+h1,h2,h3 {
+  margin: unset;
+}
+
+p {
+  margin: unset;
+}
+
 .App {
+  display: block;
+  width: 100%;  
+}
+
+.content-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.content {
+  display: flex;
+  flex-grow: 0;
+  flex-basis: 100%;
+  max-width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@media only screen and (min-width: 68em) {
+  .content {
+    flex-grow: 0;
+    flex-basis: 83.333333%;
+    max-width: 83.333333%;
+    flex-wrap: wrap;
+  }
+}
+
+.header {
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.header h1 {
+  font-size: 2rem;
+  font-weight: 500;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.header p {
+  color: #777;
+  font-size: 0.875rem;
+  margin: 1rem auto;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.c-body-pd {
+  width: 100%;
+  padding: 0 1rem;
+  border: 1px solid rgb(202, 202, 202);
+  border-radius: 10px;
+  padding: 3rem 2rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.c-body {
   display: flex;
   flex-direction: column;
+  gap: 3rem;
+  width: 100%;
+}
+
+.section-title {
+  text-decoration: underline;
+  font-weight: 600;
+  color: #777;
+}
+
+.c-body-a {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+}
+
+.input-row {
+  width: 100%;
+  display: flex;
   align-items: center;
+}
+
+.ir-label {
+  flex-grow: 0;
+  flex-basis: 25%;
+}
+
+.ir-input {
+  flex-grow: 1;
+}
+
+.checkbox-list {
+  display: flex;
+  align-items: center;
+}
+
+.cl-title {
+  flex-grow: 0;
+  flex-basis: 20%;
+}
+
+.cl-check {
+  flex-grow: 1;
+  /* display: flex;
+  flex-direction: column;
+  gap: 0.5rem; */
+}
+
+.textarea-row {
+  display: flex;
+  width: 100%;
+}
+
+.tr-label {
+  flex-grow: 0;
+  flex-basis: 25%;
+}
+
+.hr {
+  border-bottom: unset;
+  border-color: #f0f5f53d;
+  margin: 1rem 2rem;
+}
+
+.vertical-checklist {
+  display: flex;
+  flex-direction: column;
+}
+
+.align-start {
+  align-items: flex-start;
+}
+
+.table-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.table {
+  width: 100%;
+  /* border-top: 1px solid rgb(98, 158, 130); */
+  /* border-bottom: 1px solid rgb(98, 158, 130); */
+}
+
+.t-head {
+  border-bottom: 1px solid black;
+}
+
+.t-head-tr th {
+  padding: 0;
+  background: rgb(165, 221, 184);
+  font-size: 0.875rem;
+  font-weight: bold;
+  border-radius: 2px;
+}
+
+.t-head-tr2 th {
+  border-right: 1px solid rgb(165, 221, 184);
+  background: rgba(165, 221, 184, 0.363);;
+  box-sizing: border-box;
+  font-size: 0.8rem;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+.t-head-tr3 th {
+  background: rgb(247, 239, 214);
+}
+
+.t-head-tr3 th:nth-child(2) {
+  text-align: left;
+}
+
+.table-input {
+  border: 0.5px solid;
+  border-color: rgb(201, 206, 202);
+  border-radius: 2px;
+}
+
+.table-input:focus {
+  outline:0.5px solid rgb(165, 221, 184);
+}
+
+.small {
+  max-width: 3rem;
+}
+
+.medium {
+  max-width: 7rem;
+}
+
+.big {
+  max-width: 10rem;
+}
+
+.t-body tr td:first-child {
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  font-size: 0.875rem;
 }
 
-.App-link {
-  color: #61dafb;
+.t-body tr td:last-child {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.del-row-btn {
+  background-color: rgba(241, 7, 7, 0.349);
+  border-radius: 4px;
+  border: unset;
+}
+
+.del-row-btn:hover {
+  background-color: rgba(241, 7, 7, 0.733);
+  cursor: pointer;
+}
+
+.buttons {
+  display: flex;
+  gap: 2rem;
+}
+
+.add-btn {
+  /* border-color: aquamarine; */
+  background: rgb(206, 245, 225);
+  border: unset;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+}
+
+.add-btn:hover {
+  background: rgb(165, 206, 185);
+  cursor: pointer;
+  transform: translateY(-2px);
+  transition: transform 0.5s;
+}
+
+.add-btn:active {
+  transform: translateY(-1px);
+  transition: transform 0.1s;
 }
