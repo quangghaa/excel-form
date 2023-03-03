@@ -1,5 +1,6 @@
-import { DeleteOutlined } from "@ant-design/icons";
+import { DeleteOutlined, PlusSquareOutlined } from "@ant-design/icons";
 import { message, Popconfirm } from "antd";
+import TextArea from "antd/es/input/TextArea";
 import React, { useEffect, useState } from "react";
 import "./style.css"
 
@@ -20,12 +21,13 @@ interface Config {
 }
 
 function ConfigTable(props: any) {
-    const text = 'Bạn có muốn xóa hàng?';
-    const description = 'Delete the task';
+    const confirmDelTitle = 'Xác nhận xóa';
+    function desMessConfirm(row: number) {
+        return `Hàng thứ ${row}`
+    }
 
     const confirmDelete = (tipe: any, rowId: any, rowName: any) => {
         deleteRow(tipe, rowId)
-        message.info(`Xóa hàng: ${rowName}`);
     };
 
     const [currentIdIndex, setCurrentIdIndex] = useState(0)
@@ -34,7 +36,6 @@ function ConfigTable(props: any) {
     const [newConfigRow, setNewConfigRow] = useState([] as Config[])
 
     function currentPrefixId(configId: any) {
-        // console.log("Check prefix id: ", "current-row-" + configId)
         return "current-row-" + configId
     }
 
@@ -43,7 +44,7 @@ function ConfigTable(props: any) {
     }
 
     useEffect(() => {
-        console.log("Final: " , currentConfigRow)
+        console.log("Final current: ", currentConfigRow)
         console.log("Final new: ", newConfigRow)
 
     }, [currentConfigRow, newConfigRow])
@@ -72,19 +73,25 @@ function ConfigTable(props: any) {
     }
 
     function deleteRow(tipe: any, rowId: any) {
-        console.log("Check row id and tipe: ", rowId, tipe)
+        var target = fill(tipe)
+        if (target == undefined) {
+            console.log("target undefined")
+            return
+        }
+        var deleted = target.filter((c: Config) => {
+            return c.id == rowId
+        })
+        var newArr = target.filter((c: Config) => {
+            return c.id != rowId
+        })
         switch (tipe) {
             case 0:
-                var newArr = currentConfigRow.filter((c: Config) => {
-                    return c.id != rowId
-                })
                 setCurrentConfigRow(newArr)
+                message.info(`Xóa hàng: ${deleted[0].ipAddress}`);
                 break
             case 1:
-                var newArr = newConfigRow.filter((c: Config) => {
-                    return c.id != rowId
-                })
                 setNewConfigRow(newArr)
+                message.info(`Xóa hàng: ${deleted[0].ipAddress}`);
                 break
             default:
                 console.log("delete error")
@@ -92,16 +99,91 @@ function ConfigTable(props: any) {
 
     }
 
-    function fillData(tipe: any) {
-        switch(tipe) {
-            case 0: 
+    function fill(tipe: any) {
+        switch (tipe) {
+            case 0:
                 var resultArr = [] as Config[]
                 currentConfigRow.forEach((c: Config, i: number) => {
                     var valueArray = [] as string[]
                     for (let j = 1; j <= 12; j++) {
                         var inputId = currentPrefixId(c.id) + "col-" + j
                         var value = (document.getElementById(inputId) as HTMLInputElement).value
-                        if(value != undefined && value != null) {
+                        if (value != undefined && value != null) {
+                            valueArray.push(value)
+                        } else {
+                            valueArray.push("")
+                        }
+                    }
+
+                    var o = {} as Config
+                    o.id = c.id
+                    o.ipAddress = valueArray[0]
+                    o.cpu = Number(valueArray[1])
+                    o.ram = Number(valueArray[2])
+                    o.hdd1 = Number(valueArray[3])
+                    o.hdd2 = Number(valueArray[4])
+                    o.hdd3 = Number(valueArray[5])
+                    o.totalGb = Number(valueArray[6])
+                    o.os = valueArray[7]
+                    o.env = valueArray[8]
+                    o.version = valueArray[9]
+                    o.supervisor = valueArray[10]
+                    o.purpose = valueArray[11]
+
+                    resultArr.push(o)
+                })
+                return resultArr
+                // setCurrentConfigRow(resultArr)
+                break
+            case 1:
+                var resultArr = [] as Config[]
+                newConfigRow.forEach((c: Config, i: number) => {
+                    var valueArray = [] as string[]
+                    for (let j = 1; j <= 12; j++) {
+                        var inputId = newPrefixId(c.id) + "col-" + j
+                        var value = (document.getElementById(inputId) as HTMLInputElement).value
+                        if (value != undefined && value != null) {
+                            valueArray.push(value)
+                        } else {
+                            valueArray.push("")
+                        }
+                    }
+
+                    var o = {} as Config
+                    o.id = c.id
+                    o.ipAddress = valueArray[0]
+                    o.cpu = Number(valueArray[1])
+                    o.ram = Number(valueArray[2])
+                    o.hdd1 = Number(valueArray[3])
+                    o.hdd2 = Number(valueArray[4])
+                    o.hdd3 = Number(valueArray[5])
+                    o.totalGb = Number(valueArray[6])
+                    o.os = valueArray[7]
+                    o.env = valueArray[8]
+                    o.version = valueArray[9]
+                    o.supervisor = valueArray[10]
+                    o.purpose = valueArray[11]
+
+                    resultArr.push(o)
+                })
+                // setNewConfigRow(resultArr)
+                return resultArr
+                break
+            default:
+                console.log("something wrong??")
+        }
+    }
+
+    function fillData(tipe: any) {
+        switch (tipe) {
+            case 0:
+                var resultArr = [] as Config[]
+                currentConfigRow.forEach((c: Config, i: number) => {
+                    var valueArray = [] as string[]
+                    for (let j = 1; j <= 12; j++) {
+                        var inputId = currentPrefixId(c.id) + "col-" + j
+                        var value = (document.getElementById(inputId) as HTMLInputElement).value
+                        if (value != undefined && value != null) {
                             valueArray.push(value)
                         } else {
                             valueArray.push("")
@@ -128,14 +210,14 @@ function ConfigTable(props: any) {
                 console.log("DEBUG result: ", resultArr)
                 setCurrentConfigRow(resultArr)
                 break
-            case 1: 
+            case 1:
                 var resultArr = [] as Config[]
                 newConfigRow.forEach((c: Config, i: number) => {
                     var valueArray = [] as string[]
                     for (let j = 1; j <= 12; j++) {
                         var inputId = newPrefixId(c.id) + "col-" + j
                         var value = (document.getElementById(inputId) as HTMLInputElement).value
-                        if(value != undefined && value != null) {
+                        if (value != undefined && value != null) {
                             valueArray.push(value)
                         } else {
                             valueArray.push("")
@@ -161,21 +243,21 @@ function ConfigTable(props: any) {
                 })
                 setNewConfigRow(resultArr)
                 break
-            default: 
+            default:
                 console.log("something wrong??")
         }
     }
 
     function getData(tipe: any) {
         fillData(tipe)
-        switch(tipe) {
-            case 0: 
+        switch (tipe) {
+            case 0:
                 console.log("Get current data: ", currentConfigRow)
                 break
-            case 1: 
+            case 1:
                 console.log("Get new data: ", newConfigRow)
                 break
-            default: 
+            default:
                 console.log("get data error")
         }
     }
@@ -206,7 +288,7 @@ function ConfigTable(props: any) {
                         <th>Phiên bản</th>
                         <th>Người phụ trách</th>
                         <th>Mục đích sử dụng</th>
-                        <th>Xóa</th>
+                        <th>Lựa chọn</th>
                     </tr>
                 </thead>
                 <thead className="t-head">
@@ -250,7 +332,12 @@ function ConfigTable(props: any) {
                 <thead className="t-head">
                     <tr className="t-head-tr3">
                         <th>I</th>
-                        <th colSpan={13}>Cấu hình hiện tại</th>
+                        <th colSpan={12}>Cấu hình hiện tại</th>
+                        <th>
+                            <button className="addrow-btn" onClick={() => addConfig(0)}>
+                                Thêm hàng
+                            </button>
+                        </th>
                     </tr>
                 </thead>
 
@@ -259,26 +346,26 @@ function ConfigTable(props: any) {
                         currentConfigRow.map((c: Config, i: number) => {
                             return <tr>
                                 <td>{i + 1}</td>
-                                <td>
+                                <td className="d">
                                     <input id={currentPrefixId(c.id) + "col-1"} key={c.ipAddress} defaultValue={c.ipAddress} type="text" className="table-input big" />
                                 </td>
                                 <td>
-                                    <input id={currentPrefixId(c.id) + "col-2"} key={c.cpu} defaultValue={c.cpu} type="text" className="table-input small" />
+                                    <input id={currentPrefixId(c.id) + "col-2"} key={c.cpu} defaultValue={c.cpu} type="text" className="table-input medium medium-max" />
                                 </td>
                                 <td>
-                                    <input id={currentPrefixId(c.id) + "col-3"} key={c.ram} defaultValue={c.ram} type="text" className="table-input small" />
+                                    <input id={currentPrefixId(c.id) + "col-3"} key={c.ram} defaultValue={c.ram} type="text" className="table-input medium medium-max" />
                                 </td>
                                 <td>
-                                    <input id={currentPrefixId(c.id) + "col-4"} key={c.hdd1} defaultValue={c.hdd1} type="text" className="table-input small" />
+                                    <input id={currentPrefixId(c.id) + "col-4"} key={c.hdd1} defaultValue={c.hdd1} type="text" className="table-input medium medium-max" />
                                 </td>
                                 <td>
-                                    <input id={currentPrefixId(c.id) + "col-5"} key={c.hdd2} defaultValue={c.hdd2} type="text" className="table-input small" />
+                                    <input id={currentPrefixId(c.id) + "col-5"} key={c.hdd2} defaultValue={c.hdd2} type="text" className="table-input medium medium-max" />
                                 </td>
                                 <td>
-                                    <input id={currentPrefixId(c.id) + "col-6"} key={c.hdd3} defaultValue={c.hdd3} type="text" className="table-input small" />
+                                    <input id={currentPrefixId(c.id) + "col-6"} key={c.hdd3} defaultValue={c.hdd3} type="text" className="table-input medium medium-max" />
                                 </td>
                                 <td>
-                                    <input id={currentPrefixId(c.id) + "col-7"} key={c.totalGb} defaultValue={c.totalGb} type="text" className="table-input small" />
+                                    <input id={currentPrefixId(c.id) + "col-7"} key={c.totalGb} defaultValue={c.totalGb} type="text" className="table-input medium medium-max" />
                                 </td>
                                 <td>
                                     <input id={currentPrefixId(c.id) + "col-8"} key={c.os} defaultValue={c.os} type="text" className="table-input medium" />
@@ -293,19 +380,19 @@ function ConfigTable(props: any) {
                                     <input id={currentPrefixId(c.id) + "col-11"} key={c.supervisor} defaultValue={c.supervisor} type="text" className="table-input medium" />
                                 </td>
                                 <td>
-                                    <input id={currentPrefixId(c.id) + "col-12"} key={c.purpose} defaultValue={c.purpose} type="text" className="table-input big" />
+                                    <TextArea id={currentPrefixId(c.id) + "col-12"} key={c.purpose} defaultValue={c.purpose} className="table-input big" />
                                 </td>
                                 <td>
                                     <Popconfirm
                                         placement="leftBottom"
-                                        title={text}
-                                        description={c.ipAddress}
+                                        title={confirmDelTitle}
+                                        description={desMessConfirm(i + 1)}
                                         onConfirm={() => confirmDelete(0, c.id, c.ipAddress)}
                                         okText="Yes"
                                         cancelText="No"
                                     >
-                                        <button className="del-row-btn">
-                                            <DeleteOutlined style={{ color: "red" }} />
+                                        <button className="delrow-btn">
+                                            Xóa hàng
                                         </button>
                                     </Popconfirm>
 
@@ -319,7 +406,12 @@ function ConfigTable(props: any) {
                 <thead className="t-head">
                     <tr className="t-head-tr3">
                         <th>I</th>
-                        <th colSpan={13}>Cấu hình mới</th>
+                        <th colSpan={12}>Cấu hình mới</th>
+                        <th>
+                            <button className="addrow-btn" onClick={() => addConfig(1)}>
+                                Thêm hàng
+                            </button>
+                        </th>
                     </tr>
                 </thead>
 
@@ -332,22 +424,22 @@ function ConfigTable(props: any) {
                                     <input id={newPrefixId(c.id) + "col-1"} key={c.ipAddress} defaultValue={c.ipAddress} type="text" className="table-input big" />
                                 </td>
                                 <td>
-                                    <input id={newPrefixId(c.id) + "col-2"} key={c.cpu} defaultValue={c.cpu} type="text" className="table-input small" />
+                                    <input id={newPrefixId(c.id) + "col-2"} key={c.cpu} defaultValue={c.cpu} type="text" className="table-input medium medium-max " />
                                 </td>
                                 <td>
-                                    <input id={newPrefixId(c.id) + "col-3"} key={c.ram} defaultValue={c.ram} type="text" className="table-input small" />
+                                    <input id={newPrefixId(c.id) + "col-3"} key={c.ram} defaultValue={c.ram} type="text" className="table-input medium medium-max" />
                                 </td>
                                 <td>
-                                    <input id={newPrefixId(c.id) + "col-4"} key={c.hdd1} defaultValue={c.hdd1} type="text" className="table-input small" />
+                                    <input id={newPrefixId(c.id) + "col-4"} key={c.hdd1} defaultValue={c.hdd1} type="text" className="table-input medium medium-max" />
                                 </td>
                                 <td>
-                                    <input id={newPrefixId(c.id) + "col-5"} key={c.hdd2} defaultValue={c.hdd2} type="text" className="table-input small" />
+                                    <input id={newPrefixId(c.id) + "col-5"} key={c.hdd2} defaultValue={c.hdd2} type="text" className="table-input medium medium-max" />
                                 </td>
                                 <td>
-                                    <input id={newPrefixId(c.id) + "col-6"} key={c.hdd3} defaultValue={c.hdd3} type="text" className="table-input small" />
+                                    <input id={newPrefixId(c.id) + "col-6"} key={c.hdd3} defaultValue={c.hdd3} type="text" className="table-input medium medium-max" />
                                 </td>
                                 <td>
-                                    <input id={newPrefixId(c.id) + "col-7"} key={c.totalGb} defaultValue={c.totalGb} type="text" className="table-input small" />
+                                    <input id={newPrefixId(c.id) + "col-7"} key={c.totalGb} defaultValue={c.totalGb} type="text" className="table-input medium medium-max" />
                                 </td>
                                 <td>
                                     <input id={newPrefixId(c.id) + "col-8"} key={c.os} defaultValue={c.os} type="text" className="table-input medium" />
@@ -362,19 +454,19 @@ function ConfigTable(props: any) {
                                     <input id={newPrefixId(c.id) + "col-11"} key={c.supervisor} defaultValue={c.supervisor} type="text" className="table-input medium" />
                                 </td>
                                 <td>
-                                    <input id={newPrefixId(c.id) + "col-12"} key={c.purpose} defaultValue={c.purpose} type="text" className="table-input big" />
+                                    <TextArea id={newPrefixId(c.id) + "col-12"} key={c.purpose} defaultValue={c.purpose} className="table-input big" />
                                 </td>
                                 <td>
                                     <Popconfirm
                                         placement="leftBottom"
-                                        title={text}
-                                        description={c.ipAddress}
+                                        title={confirmDelTitle}
+                                        description={desMessConfirm(i + 1)}
                                         onConfirm={() => confirmDelete(1, c.id, c.ipAddress)}
                                         okText="Yes"
                                         cancelText="No"
                                     >
-                                        <button className="del-row-btn">
-                                            <DeleteOutlined style={{ color: "red" }} />
+                                        <button className="delrow-btn">
+                                            Xóa hàng
                                         </button>
                                     </Popconfirm>
 

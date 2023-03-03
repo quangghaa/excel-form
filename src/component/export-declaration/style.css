@@ -1,0 +1,330 @@
+.content-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.container {
+    display: flex;
+    gap: 2rem;
+}
+
+@media screen and (min-width: 68rem) {
+    .container {
+        gap: 5rem;
+    }
+}
+
+.content {
+    display: flex;
+    flex-grow: 0;
+    flex-basis: 100%;
+    max-width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.header {
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+.header h1 {
+    font-size: 2rem;
+    font-weight: 500;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.header h2 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    text-align: center;
+    /* margin-top: 2rem; */
+}
+
+.header p {
+    color: #777;
+    font-size: 0.875rem;
+    margin: 1rem auto;
+    text-align: center;
+}
+
+.c-body-pd {
+    width: 100%;
+    padding: 0 1rem;
+    border: 1px solid rgb(202, 202, 202);
+    border-radius: 10px;
+    padding: 3rem 2rem;
+}
+
+.c-body {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    width: 100%;
+}
+
+.section-title {
+    text-decoration: underline;
+    font-weight: 600;
+    color: #777;
+}
+
+.c-body-a {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    overflow: scroll;
+    overflow-y: hidden;
+}
+
+.overflow-hidden {
+    overflow: hidden;
+}
+
+.input-row {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.align-start {
+    align-items: flex-start;
+}
+
+.ir-label {
+    flex-grow: 0;
+    flex-basis: 25%;
+}
+
+.ir-input {
+    flex-grow: 1;
+}
+
+.checkbox-list {
+    display: flex;
+    align-items: center;
+}
+
+.cl-title {
+    flex-grow: 0;
+    flex-basis: 20%;
+}
+
+.cl-check {
+    flex-grow: 1;
+}
+
+.textarea-row {
+    display: flex;
+    width: 100%;
+}
+
+.tr-label {
+    flex-grow: 0;
+    flex-basis: 25%;
+}
+
+.hr {
+    border-bottom: unset;
+    border-color: #f0f5f53d;
+    margin: 1rem 2rem;
+}
+
+.vertical-checklist {
+    display: flex;
+    flex-direction: column;
+}
+
+.align-start {
+    align-items: flex-start;
+}
+
+.table-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.table {
+    width: 100%;
+    /* border-top: 1px solid rgb(98, 158, 130); */
+    /* border-bottom: 1px solid rgb(98, 158, 130); */
+}
+
+.t-head {
+    border-bottom: 1px solid black;
+}
+
+.t-head-tr th {
+    padding: 0;
+    background: rgb(165, 221, 184);
+    font-size: 0.875rem;
+    font-weight: bold;
+    border-radius: 2px;
+}
+
+.t-head-tr2 th {
+    border-right: 1px solid rgb(165, 221, 184);
+    background: rgba(165, 221, 184, 0.363);
+    ;
+    box-sizing: border-box;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border-radius: 4px;
+}
+
+.t-head-tr3 th {
+    background: rgb(247, 239, 214);
+}
+
+.t-head-tr3 th:nth-child(2) {
+    text-align: left;
+}
+
+.t-head-tr3 th:last-child {
+    background: #fff;
+}
+
+.t-head-tr-last th {
+    background: rgb(247, 239, 214);
+    font-size: 1.125rem;
+    text-align: left;
+    padding-left: 2rem;
+}
+
+.t-head-tr-last th:first-child {
+    font-weight: bold;
+}   
+
+.t-head-tr-last th:nth-child(2) {
+    text-transform: uppercase;
+}
+
+.table-input {
+    border: 0.5px solid;
+    border-color: rgb(201, 206, 202);
+    border-radius: 2px;
+}
+
+.table-input:focus {
+    outline: 0.5px solid rgb(165, 221, 184);
+}
+
+.small {
+    min-width: 3rem;
+}
+
+.medium {
+    min-width: 5rem;
+}
+
+.medium-max {
+    max-width: 5rem;
+}
+
+.big {
+    min-width: 14rem;
+}
+
+.t-body tr td {
+    vertical-align: top;
+}
+
+.t-body tr td:first-child {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.875rem;
+}
+
+.t-body tr td:last-child {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.del-row-btn {
+    background-color: rgba(241, 7, 7, 0.349);
+    border-radius: 4px;
+    border: unset;
+}
+
+.del-row-btn:hover {
+    background-color: rgba(241, 7, 7, 0.733);
+    cursor: pointer;
+}
+
+.buttons {
+    display: flex;
+    gap: 2rem;
+}
+
+.add-btn {
+    /* border-color: aquamarine; */
+    background: rgb(206, 245, 225);
+    border: unset;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+}
+
+.add-btn:hover {
+    background: rgb(165, 206, 185);
+    cursor: pointer;
+    transform: translateY(-2px);
+    transition: transform 0.5s;
+}
+
+.add-btn:active {
+    transform: translateY(-1px);
+    transition: transform 0.1s;
+}
+
+.addrow-btn {
+    background: rgba(1, 192, 1, 0.507);
+    border: unset;
+    border-radius: 5px;
+    white-space: nowrap;
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+    transition: transform 0.3s;
+}
+
+.addrow-btn:hover {
+    cursor: pointer;
+    background: rgba(1, 192, 1, 0.918);
+    transform: translateY(-2px);
+}
+
+.addrow-btn:active {
+    transform: translateY(-1px);
+}
+
+.delrow-btn {
+    background: rgba(235, 3, 3, 0.493);
+    border: unset;
+    border-radius: 5px;
+    white-space: nowrap;
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+    transition: transform 0.3s;
+}
+
+.delrow-btn:hover {
+    cursor: pointer;
+    background: rgba(235, 3, 3, 0.705);
+    transform: translateY(-2px);
+}
+
+.delrow-btn:active {
+    transform: translateY(-1px);
+}
+
+.del-bg {
+    background: rgba(204, 12, 12, 0.507);
+}

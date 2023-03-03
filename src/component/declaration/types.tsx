@@ -1,0 +1,17 @@
+export interface Product {
+    id:number,
+    name: string,
+    code: string,
+    format: string,
+    capacity: string,
+    unit: string,
+    classify: string,
+    var7: number,
+    var8: number,
+    var9: number,
+    var10: number,
+    var11: number,
+    var12: number, 
+    var13: number,
+    var14: number,
+}
