@@ -23,8 +23,7 @@ function ConfigTable(props: any) {
     const text = 'Bạn có muốn xóa hàng?';
     const description = 'Delete the task';
 
-    const confirmDelete = (tipe: any, rowId: any, rowName: any, e: any) => {
-        console.log("E: ", e)
+    const confirmDelete = (tipe: any, rowId: any, rowName: any) => {
         deleteRow(tipe, rowId)
         message.info(`Xóa hàng: ${rowName}`);
     };
@@ -76,36 +75,10 @@ function ConfigTable(props: any) {
         console.log("Check row id and tipe: ", rowId, tipe)
         switch (tipe) {
             case 0:
-                // CLear input value first
-                // var valueArray = [] as string[]
-                //     for (let j = 1; j <= 12; j++) {
-                //         console.log("Count ", j, currentPrefixId(rowId) + "col-" + j)
-                //         var inputId = currentPrefixId(rowId) + "col-" + j
-                //         // var value = (document.getElementById(inputId) as HTMLInputElement).value
-                //         var id = (document.getElementById(inputId) as HTMLInputElement)
-                //         id.value = ""
-                //     }
-                var res = currentConfigRow.slice()
-
-                res.splice(rowId, 1);
-                // currentConfigRow.forEach((c: Config) => {
-                //     if(c.id != rowId) {
-                //         res.push(c)
-                //     }   
-                // })
-                console.log("DEBUG res: ", res)
-                setCurrentConfigRow(res)
-                // console.log("LOG: ", currentConfigRow)
-                // setTimeout(() => {
-                //     setCurrentConfigRow(res)
-                //     console.log("LOG: ", currentConfigRow)
-                    
-                // }, 1000);
-                // var newArr = currentConfigRow.filter((c: Config) => {
-                //     return c.id != rowId
-                // })
-                // console.log("DEBUG delete: ", newArr)
-                // setCurrentConfigRow(newArr)
+                var newArr = currentConfigRow.filter((c: Config) => {
+                    return c.id != rowId
+                })
+                setCurrentConfigRow(newArr)
                 break
             case 1:
                 var newArr = newConfigRow.filter((c: Config) => {
@@ -124,32 +97,6 @@ function ConfigTable(props: any) {
             case 0: 
                 var resultArr = [] as Config[]
                 currentConfigRow.forEach((c: Config, i: number) => {
-                    // var inputId1 = currentPrefixId(c.id) + "col-1"
-                    // var inputId2 = currentPrefixId(c.id) + "col-2"
-                    // var inputId3 = currentPrefixId(c.id) + "col-3"
-                    // var inputId4 = currentPrefixId(c.id) + "col-4"
-                    // var inputId5 = currentPrefixId(c.id) + "col-5"
-                    // var inputId6 = currentPrefixId(c.id) + "col-6"
-                    // var inputId7 = currentPrefixId(c.id) + "col-7"
-                    // var inputId8 = currentPrefixId(c.id) + "col-8"
-                    // var inputId9 = currentPrefixId(c.id) + "col-9"
-                    // var inputId10 = currentPrefixId(c.id) + "col-10"
-                    // var inputId11 = currentPrefixId(c.id) + "col-11"
-                    // var inputId12 = currentPrefixId(c.id) + "col-12"
-
-                    // var value1 = (document.getElementById(inputId1) as HTMLInputElement).value
-                    // var value2 = (document.getElementById(inputId2) as HTMLInputElement).value
-                    // var value3 = (document.getElementById(inputId3) as HTMLInputElement).value
-                    // var value4 = (document.getElementById(inputId4) as HTMLInputElement).value
-                    // var value5 = (document.getElementById(inputId5) as HTMLInputElement).value
-                    // var value6 = (document.getElementById(inputId6) as HTMLInputElement).value
-                    // var value7 = (document.getElementById(inputId7) as HTMLInputElement).value
-                    // var value8 = (document.getElementById(inputId8) as HTMLInputElement).value
-                    // var value9 = (document.getElementById(inputId9) as HTMLInputElement).value
-                    // var value10 = (document.getElementById(inputId10) as HTMLInputElement).value
-                    // var value11 = (document.getElementById(inputId11) as HTMLInputElement).value
-                    // var value12 = (document.getElementById(inputId12) as HTMLInputElement).value
-                    
                     var valueArray = [] as string[]
                     for (let j = 1; j <= 12; j++) {
                         var inputId = currentPrefixId(c.id) + "col-" + j
@@ -310,51 +257,50 @@ function ConfigTable(props: any) {
                 <tbody className="t-body">
                     {
                         currentConfigRow.map((c: Config, i: number) => {
-                            console.log("check: ", c)
                             return <tr>
                                 <td>{i + 1}</td>
                                 <td>
-                                    <input id={currentPrefixId(i+1) + "col-1"} defaultValue={c.ipAddress} type="text" className="table-input big" />
+                                    <input id={currentPrefixId(c.id) + "col-1"} key={c.ipAddress} defaultValue={c.ipAddress} type="text" className="table-input big" />
                                 </td>
                                 <td>
-                                    <input id={currentPrefixId(i+1) + "col-2"} defaultValue={c.cpu} type="text" className="table-input small" />
+                                    <input id={currentPrefixId(c.id) + "col-2"} key={c.cpu} defaultValue={c.cpu} type="text" className="table-input small" />
                                 </td>
                                 <td>
-                                    <input id={currentPrefixId(i+1) + "col-3"} defaultValue={c.ram} type="text" className="table-input small" />
+                                    <input id={currentPrefixId(c.id) + "col-3"} key={c.ram} defaultValue={c.ram} type="text" className="table-input small" />
                                 </td>
                                 <td>
-                                    <input id={currentPrefixId(i+1) + "col-4"} defaultValue={c.hdd1} type="text" className="table-input small" />
+                                    <input id={currentPrefixId(c.id) + "col-4"} key={c.hdd1} defaultValue={c.hdd1} type="text" className="table-input small" />
                                 </td>
                                 <td>
-                                    <input id={currentPrefixId(i+1) + "col-5"} defaultValue={c.hdd2} type="text" className="table-input small" />
+                                    <input id={currentPrefixId(c.id) + "col-5"} key={c.hdd2} defaultValue={c.hdd2} type="text" className="table-input small" />
                                 </td>
                                 <td>
-                                    <input id={currentPrefixId(i+1) + "col-6"} defaultValue={c.hdd3} type="text" className="table-input small" />
+                                    <input id={currentPrefixId(c.id) + "col-6"} key={c.hdd3} defaultValue={c.hdd3} type="text" className="table-input small" />
                                 </td>
                                 <td>
-                                    <input id={currentPrefixId(i+1) + "col-7"} defaultValue={c.totalGb} type="text" className="table-input small" />
+                                    <input id={currentPrefixId(c.id) + "col-7"} key={c.totalGb} defaultValue={c.totalGb} type="text" className="table-input small" />
                                 </td>
                                 <td>
-                                    <input id={currentPrefixId(i+1) + "col-8"} defaultValue={c.os} type="text" className="table-input medium" />
+                                    <input id={currentPrefixId(c.id) + "col-8"} key={c.os} defaultValue={c.os} type="text" className="table-input medium" />
                                 </td>
                                 <td>
-                                    <input id={currentPrefixId(i+1) + "col-9"} defaultValue={c.env} type="text" className="table-input medium" />
+                                    <input id={currentPrefixId(c.id) + "col-9"} key={c.env} defaultValue={c.env} type="text" className="table-input medium" />
                                 </td>
                                 <td>
-                                    <input id={currentPrefixId(i+1) + "col-10"} defaultValue={c.version} type="text" className="table-input medium" />
+                                    <input id={currentPrefixId(c.id) + "col-10"} key={c.version} defaultValue={c.version} type="text" className="table-input medium" />
                                 </td>
                                 <td>
-                                    <input id={currentPrefixId(i+1) + "col-11"} defaultValue={c.supervisor} type="text" className="table-input medium" />
+                                    <input id={currentPrefixId(c.id) + "col-11"} key={c.supervisor} defaultValue={c.supervisor} type="text" className="table-input medium" />
                                 </td>
                                 <td>
-                                    <input id={currentPrefixId(i+1) + "col-12"} defaultValue={c.purpose} type="text" className="table-input big" />
+                                    <input id={currentPrefixId(c.id) + "col-12"} key={c.purpose} defaultValue={c.purpose} type="text" className="table-input big" />
                                 </td>
                                 <td>
                                     <Popconfirm
                                         placement="leftBottom"
                                         title={text}
                                         description={c.ipAddress}
-                                        onConfirm={(e: any) => confirmDelete(0, i, c.ipAddress,e)}
+                                        onConfirm={() => confirmDelete(0, c.id, c.ipAddress)}
                                         okText="Yes"
                                         cancelText="No"
                                     >
@@ -383,47 +329,47 @@ function ConfigTable(props: any) {
                             return <tr>
                                 <td>{i + 1}</td>
                                 <td>
-                                    <input id={newPrefixId(c.id) + "col-1"} type="text" className="table-input big"/>
+                                    <input id={newPrefixId(c.id) + "col-1"} key={c.ipAddress} defaultValue={c.ipAddress} type="text" className="table-input big" />
                                 </td>
                                 <td>
-                                    <input id={newPrefixId(c.id) + "col-2"} type="text" className="table-input small" />
+                                    <input id={newPrefixId(c.id) + "col-2"} key={c.cpu} defaultValue={c.cpu} type="text" className="table-input small" />
                                 </td>
                                 <td>
-                                    <input id={newPrefixId(c.id) + "col-3"} type="text" className="table-input small" />
+                                    <input id={newPrefixId(c.id) + "col-3"} key={c.ram} defaultValue={c.ram} type="text" className="table-input small" />
                                 </td>
                                 <td>
-                                    <input id={newPrefixId(c.id) + "col-4"} type="text" className="table-input small" />
+                                    <input id={newPrefixId(c.id) + "col-4"} key={c.hdd1} defaultValue={c.hdd1} type="text" className="table-input small" />
                                 </td>
                                 <td>
-                                    <input id={newPrefixId(c.id) + "col-5"} type="text" className="table-input small" />
+                                    <input id={newPrefixId(c.id) + "col-5"} key={c.hdd2} defaultValue={c.hdd2} type="text" className="table-input small" />
                                 </td>
                                 <td>
-                                    <input id={newPrefixId(c.id) + "col-6"} type="text" className="table-input small" />
+                                    <input id={newPrefixId(c.id) + "col-6"} key={c.hdd3} defaultValue={c.hdd3} type="text" className="table-input small" />
                                 </td>
                                 <td>
-                                    <input id={newPrefixId(c.id) + "col-7"} type="text" className="table-input small" />
+                                    <input id={newPrefixId(c.id) + "col-7"} key={c.totalGb} defaultValue={c.totalGb} type="text" className="table-input small" />
                                 </td>
                                 <td>
-                                    <input id={newPrefixId(c.id) + "col-8"} type="text" className="table-input medium" />
+                                    <input id={newPrefixId(c.id) + "col-8"} key={c.os} defaultValue={c.os} type="text" className="table-input medium" />
                                 </td>
                                 <td>
-                                    <input id={newPrefixId(c.id) + "col-9"} type="text" className="table-input medium" />
+                                    <input id={newPrefixId(c.id) + "col-9"} key={c.env} defaultValue={c.env} type="text" className="table-input medium" />
                                 </td>
                                 <td>
-                                    <input id={newPrefixId(c.id) + "col-10"} type="text" className="table-input medium" />
+                                    <input id={newPrefixId(c.id) + "col-10"} key={c.version} defaultValue={c.version} type="text" className="table-input medium" />
                                 </td>
                                 <td>
-                                    <input id={newPrefixId(c.id) + "col-11"} type="text" className="table-input medium" />
+                                    <input id={newPrefixId(c.id) + "col-11"} key={c.supervisor} defaultValue={c.supervisor} type="text" className="table-input medium" />
                                 </td>
                                 <td>
-                                    <input id={newPrefixId(c.id) + "col-12"} type="text" className="table-input big" />
+                                    <input id={newPrefixId(c.id) + "col-12"} key={c.purpose} defaultValue={c.purpose} type="text" className="table-input big" />
                                 </td>
                                 <td>
                                     <Popconfirm
                                         placement="leftBottom"
                                         title={text}
                                         description={c.ipAddress}
-                                        // onConfirm={() => confirmDelete(1, c.id, c.ipAddress)}
+                                        onConfirm={() => confirmDelete(1, c.id, c.ipAddress)}
                                         okText="Yes"
                                         cancelText="No"
                                     >
