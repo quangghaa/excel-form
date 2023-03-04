@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import "./style.css";
 import Table from "./table";
 
-function ExportDeclaration(props: any) {
+function ImportDeclaration(props: any) {
     const test = false
     const checkText = ["☐", "☒"]
 
@@ -14,10 +14,10 @@ function ExportDeclaration(props: any) {
             <div className='content'>
                 <div className='header'>
                     <h1 className="uppercase">
-                    KÊ KHAI DANH MỤC SẢN PHẨM, HÀNG HÓA SẢN XUẤT ĐƯA RA THỊ TRƯỜNG TRONG NĂM N-1 
+                    KÊ KHAI DANH MỤC SẢN PHẨM, HÀNG HÓA NHẬP KHẨU TRONG NĂM N-1 
                     </h1>
                     <p>
-                    Từ 01/01/N-1 đến 31/12/N-1									
+                    (Từ 01/01/N-1 đến 31/12/N-1)							
                     </p>
                 </div>
 
@@ -111,4 +111,4 @@ function ExportDeclaration(props: any) {
     )
 }
 
-export default ExportDeclaration;
+export default ImportDeclaration;

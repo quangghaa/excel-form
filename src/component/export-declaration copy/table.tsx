@@ -3,7 +3,7 @@ import { message, Popconfirm } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import React, { useEffect, useState } from "react";
 import "./style.css"
-import { ProductExport } from "./types";
+import { ProductImport } from "./types";
 
 function Table(props: any) {
     const confirmDelTitle = 'Xác nhận xóa';
@@ -18,9 +18,9 @@ function Table(props: any) {
     const [currentIdIndex1, setCurrentIdIndex1] = useState(0)
     const [currentIdIndex2, setCurrentIdIndex2] = useState(0)
     const [newIdIndex, setNewIdIndex] = useState(0)
-    const [currentConfigRow1, setCurrentConfigRow1] = useState([] as ProductExport[])
-    const [currentConfigRow2, setCurrentConfigRow2] = useState([] as ProductExport[])
-    const [newConfigRow, setNewConfigRow] = useState([] as ProductExport[])
+    const [currentConfigRow1, setCurrentConfigRow1] = useState([] as ProductImport[])
+    const [currentConfigRow2, setCurrentConfigRow2] = useState([] as ProductImport[])
+    const [newConfigRow, setNewConfigRow] = useState([] as ProductImport[])
 
     function currentPrefixId(tipe: any, configId: any) {
         switch (tipe) {
@@ -49,7 +49,7 @@ function Table(props: any) {
             case "01":
                 var o = {
                     id: currentIdIndex1 + 1
-                } as ProductExport
+                } as ProductImport
                 currentConfigRow1.push(o)
                 setCurrentIdIndex1(currentIdIndex1 + 1)
                 setCurrentConfigRow1(Object.assign([], currentConfigRow1))
@@ -57,7 +57,7 @@ function Table(props: any) {
             case "02":
                 var o = {
                     id: currentIdIndex2 + 1
-                } as ProductExport
+                } as ProductImport
                 currentConfigRow2.push(o)
                 setCurrentIdIndex2(currentIdIndex2 + 1)
                 setCurrentConfigRow2(Object.assign([], currentConfigRow2))
@@ -65,7 +65,7 @@ function Table(props: any) {
             case "1":
                 var o = {
                     id: newIdIndex + 1
-                } as ProductExport
+                } as ProductImport
                 newConfigRow.push(o)
                 setNewIdIndex(newIdIndex + 1)
                 setNewConfigRow(Object.assign([], newConfigRow))
@@ -81,10 +81,10 @@ function Table(props: any) {
             console.log("target undefined")
             return
         }
-        var deleted = target.filter((c: ProductExport) => {
+        var deleted = target.filter((c: ProductImport) => {
             return c.id == rowId
         })
-        var newArr = target.filter((c: ProductExport) => {
+        var newArr = target.filter((c: ProductImport) => {
             return c.id != rowId
         })
         switch (tipe) {
@@ -109,8 +109,8 @@ function Table(props: any) {
     function fill(tipe: any) {
         switch (tipe) {
             case "01":
-                var resultArr = [] as ProductExport[]
-                currentConfigRow1.forEach((c: ProductExport, i: number) => {
+                var resultArr = [] as ProductImport[]
+                currentConfigRow1.forEach((c: ProductImport, i: number) => {
                     var valueArray = [] as string[]
                     for (let j = 1; j <= 9; j++) {
                         var inputId = currentPrefixId(0, c.id) + "col-" + j
@@ -122,24 +122,24 @@ function Table(props: any) {
                         }
                     }
 
-                    var o = {} as ProductExport
+                    var o = {} as ProductImport
                     o.id = c.id
                     o.name = valueArray[0]
                     o.code = valueArray[1]
                     o.unit = valueArray[2]
-                    o.amountIn = Number(valueArray[3])
-                    o.valueIn = Number(valueArray[4])
-                    o.amountOut = Number(valueArray[5])
-                    o.valueOut = Number(valueArray[6])
-                    o.totalValue = Number(valueArray[7])
+                    o.amount = Number(valueArray[3])
+                    o.unitPrice = Number(valueArray[4])
+                    o.totalPrice = Number(valueArray[5])
+                    o.declarationNumber = Number(valueArray[6])
+                    o.date = valueArray[7]
                     o.note = valueArray[8]
 
                     resultArr.push(o)
                 })
                 return resultArr
             case "02":
-                var resultArr = [] as ProductExport[]
-                currentConfigRow2.forEach((c: ProductExport, i: number) => {
+                var resultArr = [] as ProductImport[]
+                currentConfigRow2.forEach((c: ProductImport, i: number) => {
                     var valueArray = [] as string[]
                     for (let j = 1; j <= 9; j++) {
                         var inputId = currentPrefixId(1, c.id) + "col-" + j
@@ -151,24 +151,24 @@ function Table(props: any) {
                         }
                     }
 
-                    var o = {} as ProductExport
+                    var o = {} as ProductImport
                     o.id = c.id
                     o.name = valueArray[0]
                     o.code = valueArray[1]
                     o.unit = valueArray[2]
-                    o.amountIn = Number(valueArray[3])
-                    o.valueIn = Number(valueArray[4])
-                    o.amountOut = Number(valueArray[5])
-                    o.valueOut = Number(valueArray[6])
-                    o.totalValue = Number(valueArray[7])
+                    o.amount = Number(valueArray[3])
+                    o.unitPrice = Number(valueArray[4])
+                    o.totalPrice = Number(valueArray[5])
+                    o.declarationNumber = Number(valueArray[6])
+                    o.date = valueArray[7]
                     o.note = valueArray[8]
 
                     resultArr.push(o)
                 })
                 return resultArr
             case "1":
-                var resultArr = [] as ProductExport[]
-                newConfigRow.forEach((c: ProductExport, i: number) => {
+                var resultArr = [] as ProductImport[]
+                newConfigRow.forEach((c: ProductImport, i: number) => {
                     var valueArray = [] as string[]
                     for (let j = 1; j <= 9; j++) {
                         var inputId = newPrefixId(c.id) + "col-" + j
@@ -180,16 +180,16 @@ function Table(props: any) {
                         }
                     }
 
-                    var o = {} as ProductExport
+                    var o = {} as ProductImport
                     o.id = c.id
                     o.name = valueArray[0]
                     o.code = valueArray[1]
                     o.unit = valueArray[2]
-                    o.amountIn = Number(valueArray[3])
-                    o.valueIn = Number(valueArray[4])
-                    o.amountOut = Number(valueArray[5])
-                    o.valueOut = Number(valueArray[6])
-                    o.totalValue = Number(valueArray[7])
+                    o.amount = Number(valueArray[3])
+                    o.unitPrice = Number(valueArray[4])
+                    o.totalPrice = Number(valueArray[5])
+                    o.declarationNumber = Number(valueArray[6])
+                    o.date = valueArray[7]
                     o.note = valueArray[8]
 
                     resultArr.push(o)
@@ -203,8 +203,8 @@ function Table(props: any) {
     function fillData(tipe: any) {
         switch (tipe) {
             case "01":
-                var resultArr = [] as ProductExport[]
-                currentConfigRow1.forEach((c: ProductExport, i: number) => {
+                var resultArr = [] as ProductImport[]
+                currentConfigRow1.forEach((c: ProductImport, i: number) => {
                     var valueArray = [] as string[]
                     for (let j = 1; j <= 9; j++) {
                         var inputId = currentPrefixId(0, c.id) + "col-" + j
@@ -216,16 +216,16 @@ function Table(props: any) {
                         }
                     }
 
-                    var o = {} as ProductExport
+                    var o = {} as ProductImport
                     o.id = c.id
                     o.name = valueArray[0]
                     o.code = valueArray[1]
                     o.unit = valueArray[2]
-                    o.amountIn = Number(valueArray[3])
-                    o.valueIn = Number(valueArray[4])
-                    o.amountOut = Number(valueArray[5])
-                    o.valueOut = Number(valueArray[6])
-                    o.totalValue = Number(valueArray[7])
+                    o.amount = Number(valueArray[3])
+                    o.unitPrice = Number(valueArray[4])
+                    o.totalPrice = Number(valueArray[5])
+                    o.declarationNumber = Number(valueArray[6])
+                    o.date = valueArray[7]
                     o.note = valueArray[8]
 
                     resultArr.push(o)
@@ -233,8 +233,8 @@ function Table(props: any) {
                 setCurrentConfigRow1(resultArr)
                 break
             case "02":
-                var resultArr = [] as ProductExport[]
-                currentConfigRow1.forEach((c: ProductExport, i: number) => {
+                var resultArr = [] as ProductImport[]
+                currentConfigRow1.forEach((c: ProductImport, i: number) => {
                     var valueArray = [] as string[]
                     for (let j = 1; j <= 9; j++) {
                         var inputId = currentPrefixId(0, c.id) + "col-" + j
@@ -246,16 +246,16 @@ function Table(props: any) {
                         }
                     }
 
-                    var o = {} as ProductExport
+                    var o = {} as ProductImport
                     o.id = c.id
                     o.name = valueArray[0]
                     o.code = valueArray[1]
                     o.unit = valueArray[2]
-                    o.amountIn = Number(valueArray[3])
-                    o.valueIn = Number(valueArray[4])
-                    o.amountOut = Number(valueArray[5])
-                    o.valueOut = Number(valueArray[6])
-                    o.totalValue = Number(valueArray[7])
+                    o.amount = Number(valueArray[3])
+                    o.unitPrice = Number(valueArray[4])
+                    o.totalPrice = Number(valueArray[5])
+                    o.declarationNumber = Number(valueArray[6])
+                    o.date = valueArray[7]
                     o.note = valueArray[8]
 
                     resultArr.push(o)
@@ -263,8 +263,8 @@ function Table(props: any) {
                 setCurrentConfigRow2(resultArr)
                 break
             case "1":
-                var resultArr = [] as ProductExport[]
-                newConfigRow.forEach((c: ProductExport, i: number) => {
+                var resultArr = [] as ProductImport[]
+                newConfigRow.forEach((c: ProductImport, i: number) => {
                     var valueArray = [] as string[]
                     for (let j = 1; j <= 9; j++) {
                         var inputId = newPrefixId(c.id) + "col-" + j
@@ -276,16 +276,16 @@ function Table(props: any) {
                         }
                     }
 
-                    var o = {} as ProductExport
+                    var o = {} as ProductImport
                     o.id = c.id
                     o.name = valueArray[0]
                     o.code = valueArray[1]
                     o.unit = valueArray[2]
-                    o.amountIn = Number(valueArray[3])
-                    o.valueIn = Number(valueArray[4])
-                    o.amountOut = Number(valueArray[5])
-                    o.valueOut = Number(valueArray[6])
-                    o.totalValue = Number(valueArray[7])
+                    o.amount = Number(valueArray[3])
+                    o.unitPrice = Number(valueArray[4])
+                    o.totalPrice = Number(valueArray[5])
+                    o.declarationNumber = Number(valueArray[6])
+                    o.date = valueArray[7]
                     o.note = valueArray[8]
 
                     resultArr.push(o)
@@ -318,26 +318,13 @@ function Table(props: any) {
                         <th>Danh mục sản phẩm</th>
                         <th>Mã sản phẩm</th>
                         <th>Đơn vị tính</th>
-                        <th colSpan={2}>Doanh thu từ trong nước</th>
-                        <th colSpan={2}>Doanh thu từ xuất khẩu</th>
-                        <th>Tổng doanh thu</th>
+                        <th>Số lượng</th>
+                        <th>Đơn giá</th>
+                        <th>Giá trị nhập</th>
+                        <th>Tờ khai số</th>
+                        <th>Ngày đăng ký</th>
                         <th>Ghi chú</th>
                         <th>Lựa chọn</th>
-                    </tr>
-                </thead>
-                <thead className="t-head">
-                    <tr className="t-head-tr2">
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th>Số lượng</th>
-                        <th>Thành tiền</th>
-                        <th>Số lượng</th>
-                        <th>Thành tiền</th>
-                        <th>Tổng doanh thu</th>
-                        <th>Ghi chú</th>
-                        <th></th>
                     </tr>
                 </thead>
 
@@ -349,9 +336,9 @@ function Table(props: any) {
                         <th>(4)</th>
                         <th>(5)</th>
                         <th>(6)</th>
-                        <th>(7)</th>
+                        <th>(7)=(5)x(6)</th>
                         <th>(8)</th>
-                        <th>(9)=(6)+(8)</th>
+                        <th>(9)</th>
                         <th>(10)</th>
                         <th></th>
                     </tr>
@@ -379,7 +366,7 @@ function Table(props: any) {
 
                 <tbody className="t-body">
                     {
-                        currentConfigRow1.map((c: ProductExport, i: number) => {
+                        currentConfigRow1.map((c: ProductImport, i: number) => {
                             return <tr>
                                 <td>{i + 1}</td>
                                 <td className="d">
@@ -392,19 +379,19 @@ function Table(props: any) {
                                     <input id={currentPrefixId(0, c.id) + "col-3"} key={c.unit} defaultValue={c.unit} type="text" className="table-input medium medium-max" />
                                 </td>
                                 <td>
-                                    <input id={currentPrefixId(0, c.id) + "col-4"} key={c.amountIn} defaultValue={c.amountIn} type="text" className="table-input medium" />
+                                    <input id={currentPrefixId(0, c.id) + "col-4"} key={c.amount} defaultValue={c.amount} type="text" className="table-input medium" />
                                 </td>
                                 <td>
-                                    <input id={currentPrefixId(0, c.id) + "col-5"} key={c.valueIn} defaultValue={c.valueIn} type="text" className="table-input medium" />
+                                    <input id={currentPrefixId(0, c.id) + "col-5"} key={c.unitPrice} defaultValue={c.unitPrice} type="text" className="table-input medium" />
                                 </td>
                                 <td>
-                                    <input id={currentPrefixId(0, c.id) + "col-6"} key={c.amountOut} defaultValue={c.amountOut} type="text" className="table-input medium" />
+                                    <input id={currentPrefixId(0, c.id) + "col-6"} key={c.totalPrice} defaultValue={c.totalPrice} type="text" className="table-input medium" />
                                 </td>
                                 <td>
-                                    <input id={currentPrefixId(0, c.id) + "col-7"} key={c.valueOut} defaultValue={c.valueOut} type="text" className="table-input medium" />
+                                    <input id={currentPrefixId(0, c.id) + "col-7"} key={c.declarationNumber} defaultValue={c.declarationNumber} type="text" className="table-input medium" />
                                 </td>
                                 <td>
-                                    <input id={currentPrefixId(0, c.id) + "col-8"} key={c.totalValue} defaultValue={c.totalValue} type="text" className="table-input medium" />
+                                    <input id={currentPrefixId(0, c.id) + "col-8"} key={c.date} defaultValue={c.date} type="text" className="table-input medium" />
                                 </td>
                                 <td className="d">
                                     <TextArea id={currentPrefixId(0, c.id) + "col-9"} key={c.note} defaultValue={c.note} className="table-input big" />
@@ -444,7 +431,7 @@ function Table(props: any) {
 
                 <tbody className="t-body">
                     {
-                        currentConfigRow2.map((c: ProductExport, i: number) => {
+                        currentConfigRow2.map((c: ProductImport, i: number) => {
                             return <tr>
                                 <td>{i + 1}</td>
                                 <td className="d">
@@ -457,19 +444,19 @@ function Table(props: any) {
                                     <input id={currentPrefixId(1, c.id) + "col-3"} key={c.unit} defaultValue={c.unit} type="text" className="table-input medium medium-max" />
                                 </td>
                                 <td>
-                                    <input id={currentPrefixId(1, c.id) + "col-4"} key={c.amountIn} defaultValue={c.amountIn} type="text" className="table-input medium" />
+                                    <input id={currentPrefixId(1, c.id) + "col-4"} key={c.amount} defaultValue={c.amount} type="text" className="table-input medium" />
                                 </td>
                                 <td>
-                                    <input id={currentPrefixId(1, c.id) + "col-5"} key={c.valueIn} defaultValue={c.valueIn} type="text" className="table-input medium" />
+                                    <input id={currentPrefixId(1, c.id) + "col-5"} key={c.unitPrice} defaultValue={c.unitPrice} type="text" className="table-input medium" />
                                 </td>
                                 <td>
-                                    <input id={currentPrefixId(1, c.id) + "col-6"} key={c.amountOut} defaultValue={c.amountOut} type="text" className="table-input medium" />
+                                    <input id={currentPrefixId(1, c.id) + "col-6"} key={c.totalPrice} defaultValue={c.totalPrice} type="text" className="table-input medium" />
                                 </td>
                                 <td>
-                                    <input id={currentPrefixId(1, c.id) + "col-7"} key={c.valueOut} defaultValue={c.valueOut} type="text" className="table-input medium" />
+                                    <input id={currentPrefixId(1, c.id) + "col-7"} key={c.declarationNumber} defaultValue={c.declarationNumber} type="text" className="table-input medium" />
                                 </td>
                                 <td>
-                                    <input id={currentPrefixId(1, c.id) + "col-8"} key={c.totalValue} defaultValue={c.totalValue} type="text" className="table-input medium" />
+                                    <input id={currentPrefixId(1, c.id) + "col-8"} key={c.date} defaultValue={c.date} type="text" className="table-input medium" />
                                 </td>
                                 <td className="d">
                                     <TextArea id={currentPrefixId(1, c.id) + "col-9"} key={c.note} defaultValue={c.note} className="table-input big" />
@@ -509,7 +496,7 @@ function Table(props: any) {
 
                 <tbody className="t-body">
                     {
-                        newConfigRow.map((c: ProductExport, i: number) => {
+                        newConfigRow.map((c: ProductImport, i: number) => {
                             return <tr>
                                 <td>{i + 1}</td>
                                 <td className="d">
@@ -522,19 +509,19 @@ function Table(props: any) {
                                     <input id={newPrefixId(c.id) + "col-3"} key={c.unit} defaultValue={c.unit} type="text" className="table-input medium medium-max" />
                                 </td>
                                 <td>
-                                    <input id={newPrefixId(c.id) + "col-4"} key={c.amountIn} defaultValue={c.amountIn} type="text" className="table-input medium" />
+                                    <input id={newPrefixId(c.id) + "col-4"} key={c.amount} defaultValue={c.amount} type="text" className="table-input medium" />
                                 </td>
                                 <td>
-                                    <input id={newPrefixId(c.id) + "col-5"} key={c.valueIn} defaultValue={c.valueIn} type="text" className="table-input medium" />
+                                    <input id={newPrefixId(c.id) + "col-5"} key={c.unitPrice} defaultValue={c.unitPrice} type="text" className="table-input medium" />
                                 </td>
                                 <td>
-                                    <input id={newPrefixId(c.id) + "col-6"} key={c.amountOut} defaultValue={c.amountOut} type="text" className="table-input medium" />
+                                    <input id={newPrefixId(c.id) + "col-6"} key={c.totalPrice} defaultValue={c.totalPrice} type="text" className="table-input medium" />
                                 </td>
                                 <td>
-                                    <input id={newPrefixId(c.id) + "col-7"} key={c.valueOut} defaultValue={c.valueOut} type="text" className="table-input medium" />
+                                    <input id={newPrefixId(c.id) + "col-7"} key={c.declarationNumber} defaultValue={c.declarationNumber} type="text" className="table-input medium" />
                                 </td>
                                 <td>
-                                    <input id={newPrefixId(c.id) + "col-8"} key={c.totalValue} defaultValue={c.totalValue} type="text" className="table-input medium" />
+                                    <input id={newPrefixId(c.id) + "col-8"} key={c.date} defaultValue={c.date} type="text" className="table-input medium" />
                                 </td>
                                 <td className="d">
                                     <TextArea id={newPrefixId(c.id) + "col-9"} key={c.note} defaultValue={c.note} className="table-input big" />
@@ -561,7 +548,7 @@ function Table(props: any) {
 
                 <thead className="t-head">
                     <tr className="t-head-tr-last">
-                        <th colSpan={11}>Tổng cộng (I)+(II)</th>
+                        <th colSpan={11}>Tổng cộng</th>
                     </tr>
                 </thead>
 

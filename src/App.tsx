@@ -4,6 +4,8 @@ import "@fontsource/roboto";
 import RequestResource from './component/request-resource/request-resource';
 import { Tabs, TabsProps } from 'antd';
 import Declaration from './component/declaration/declaration';
+import ExportDeclaration from './component/export-declaration/export-declaration';
+import ImportDeclaration from './component/export-declaration copy/import-declaration';
 
 function App() {
   const items: TabsProps['items'] = [
@@ -19,8 +21,13 @@ function App() {
     },
     {
       key: '3',
-      label: `Tab 3`,
-      children: `Content of Tab Pane 3`,
+      label: `Bảng kê khai xuất`,
+      children: <ExportDeclaration />,
+    },
+    {
+      key: '4',
+      label: `Bảng kê khai nhập`,
+      children: <ImportDeclaration />,
     },
   ];
 

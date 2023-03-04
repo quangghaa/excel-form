@@ -142,7 +142,7 @@ function Table(props: any) {
                 var resultArr = [] as Product[]
                 newConfigRow.forEach((c: Product, i: number) => {
                     var valueArray = [] as string[]
-                    for (let j = 1; j <= 12; j++) {
+                    for (let j = 1; j <= 14; j++) {
                         var inputId = newPrefixId(c.id) + "col-" + j
                         var value = (document.getElementById(inputId) as HTMLInputElement).value
                         if (value != undefined && value != null) {
