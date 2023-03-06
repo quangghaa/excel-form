@@ -267,6 +267,46 @@ function ConfigTable(props: any) {
         fillData(1)
     }
 
+    const [totalGb, setTotalGb] = useState(0)
+    function addTotalGb(e: any, rowId: any) {
+        var inp = parseInt(e.target.value)
+        var newValue = totalGb + inp
+        var valueArray = [] as string[]
+        for (let j = 1; j <= 12; j++) {
+            if(j == 4 || j== 5 || j==6) {
+                var inputId = currentPrefixId(rowId) + "col-" + j
+                var value = (document.getElementById(inputId) as HTMLInputElement).value
+                var inp = parseInt(value)
+            }
+            var inputId = currentPrefixId(rowId) + "col-" + j
+            var value = (document.getElementById(inputId) as HTMLInputElement).value
+            if (value != undefined && value != null) {
+                valueArray.push(value)
+            } else {
+                valueArray.push("")
+            }
+        }
+
+        var o = {} as Config
+        o.id = c.id
+        o.ipAddress = valueArray[0]
+        o.cpu = Number(valueArray[1])
+        o.ram = Number(valueArray[2])
+        o.hdd1 = Number(valueArray[3])
+        o.hdd2 = Number(valueArray[4])
+        o.hdd3 = Number(valueArray[5])
+        o.totalGb = Number(valueArray[6])
+        o.os = valueArray[7]
+        o.env = valueArray[8]
+        o.version = valueArray[9]
+        o.supervisor = valueArray[10]
+        o.purpose = valueArray[11]
+
+        resultArr.push(o)
+
+
+    }
+
     return (
         <>
             <div className="buttons">
@@ -350,22 +390,22 @@ function ConfigTable(props: any) {
                                     <input id={currentPrefixId(c.id) + "col-1"} key={c.ipAddress} defaultValue={c.ipAddress} type="text" className="table-input big" />
                                 </td>
                                 <td>
-                                    <input id={currentPrefixId(c.id) + "col-2"} key={c.cpu} defaultValue={c.cpu} type="text" className="table-input medium medium-max" />
+                                    <input id={currentPrefixId(c.id) + "col-2"} key={c.cpu} defaultValue={c.cpu} type="number" className="table-input medium medium-max" />
                                 </td>
                                 <td>
-                                    <input id={currentPrefixId(c.id) + "col-3"} key={c.ram} defaultValue={c.ram} type="text" className="table-input medium medium-max" />
+                                    <input id={currentPrefixId(c.id) + "col-3"} key={c.ram} defaultValue={c.ram} type="number" className="table-input medium medium-max" />
                                 </td>
                                 <td>
-                                    <input id={currentPrefixId(c.id) + "col-4"} key={c.hdd1} defaultValue={c.hdd1} type="text" className="table-input medium medium-max" />
+                                    <input id={currentPrefixId(c.id) + "col-4"} key={c.hdd1} defaultValue={c.hdd1} type="number" className="table-input medium medium-max" onChange={addTotalGb} />
                                 </td>
                                 <td>
-                                    <input id={currentPrefixId(c.id) + "col-5"} key={c.hdd2} defaultValue={c.hdd2} type="text" className="table-input medium medium-max" />
+                                    <input id={currentPrefixId(c.id) + "col-5"} key={c.hdd2} defaultValue={c.hdd2} type="number" className="table-input medium medium-max" onChange={addTotalGb} />
                                 </td>
                                 <td>
-                                    <input id={currentPrefixId(c.id) + "col-6"} key={c.hdd3} defaultValue={c.hdd3} type="text" className="table-input medium medium-max" />
+                                    <input id={currentPrefixId(c.id) + "col-6"} key={c.hdd3} defaultValue={c.hdd3} type="number" className="table-input medium medium-max" onChange={addTotalGb} />
                                 </td>
                                 <td>
-                                    <input id={currentPrefixId(c.id) + "col-7"} key={c.totalGb} defaultValue={c.totalGb} type="text" className="table-input medium medium-max" />
+                                    <input id={currentPrefixId(c.id) + "col-7"} key={c.totalGb} defaultValue={c.totalGb} value={totalGb} disabled type="number" className="table-input medium medium-max" />
                                 </td>
                                 <td>
                                     <input id={currentPrefixId(c.id) + "col-8"} key={c.os} defaultValue={c.os} type="text" className="table-input medium" />
